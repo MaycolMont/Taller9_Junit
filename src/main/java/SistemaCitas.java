@@ -15,20 +15,21 @@ public class SistemaCitas {
         medicos.add(new Medico(nombre, especialidad));
     }
 
-    public void agendarCita(String cedulaPaciente, String especialidad, LocalDateTime fechaHora) {
+    public boolean agendarCita(String cedulaPaciente, String especialidad, LocalDateTime fechaHora) {
         Paciente p = buscarPaciente(cedulaPaciente);
         if (p == null) {
             System.out.println("Paciente no encontrado.");
-            return;
+            return false;
         }
         Medico m = medicos.stream()
             .filter(med -> med.getEspecialidad().equalsIgnoreCase(especialidad))
             .findFirst().orElse(null);
         if (m == null) {
             System.out.println("No hay médico disponible.");
-            return;
+            return false;
         }
         citas.add(new CitaMedica(p, m, fechaHora));
+        return true;
     }
 
     public void solicitarExamen(String cedulaPaciente, String tipoExamen) {
@@ -61,5 +62,12 @@ public class SistemaCitas {
         return pacientes.stream()
             .filter(p -> p.getCedula().equals(cedula))
             .findFirst().orElse(null);
+    }
+    
+    public boolean existePaciente(String cedula) {
+        Paciente paciente = pacientes.stream()
+            .filter(p -> p.getCedula().equals(cedula))
+            .findFirst().orElse(null);
+        return paciente != null;
     }
 }

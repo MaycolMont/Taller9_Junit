@@ -3,6 +3,9 @@ public class Medico {
     private String especialidad;
 
     public Medico(String nombre, String especialidad) {
+        if (nombre == null) {
+            throw new IllegalArgumentException("Invalid argument");
+        }
         this.nombre = nombre;
         this.especialidad = especialidad;
     }
