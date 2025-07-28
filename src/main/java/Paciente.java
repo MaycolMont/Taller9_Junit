@@ -5,6 +5,9 @@ public class Paciente {
 
     public Paciente(String cedula, String nombre, String correo) {
         this.cedula = cedula;
+        if(cedula== ""){
+            throw new IllegalArgumentException();
+        }
         this.nombre = nombre;
         this.correo = correo;
     }
